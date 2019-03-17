@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<body>
+<div class="container">
+<div ng-app="myapp" ng-controller="usercontroller">
+ 
+<p>AngularJS Tutorial</p>
+<label>Enter Contry Name</label>
+<input type="text" ng-model="country" name="country" id="country" ng-keyup="complete(country)" class="form-control">
+<ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+   <li class="list-group-item" ng-repeat="countrydata in filterCountry" ng-click="fillTextbox(countrydata)">{{countrydata}}</li>
+</ul>
+
+</div>
+</div>
+<script>
+var app = angular.module("myapp",[]);
+app.controller("usercontroller",function($scope){
+$scope.countryList = ["American","Baren","Columbia","Thailand","ปัญจะ ศศิธรวัณณ์","พัชรี บุตรน้ำเพชร"];
+$scope.complete = function(string)
+{
+var output = [];
+angular.forEach($scope.countryList, function(country){
+   if(country.toLowerCase().indexOf(string.toLowerCase()) >= 0)
+   {
+      output.push(country);
+   }
+   $scope.hidethis= false;
+});
+   $scope.filterCountry = output;
+}
+$scope.fillTextbox = function(string){
+   $scope.country = string;
+   $scope.hidethis = true;
+}
+});
+</script>
+</body>
+</html>
